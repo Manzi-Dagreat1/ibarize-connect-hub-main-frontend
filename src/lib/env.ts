@@ -1,6 +1,6 @@
 // Centralized environment helpers for URLs
 
-export const BACKEND_URL: string = (import.meta as any).env?.VITE_BACKEND_URL || 'http://localhost:3001';
+export const BACKEND_URL: string = (import.meta as any).env?.VITE_BACKEND_URL;
 export const API_BASE: string = (import.meta as any).env?.VITE_API_BASE_URL || BACKEND_URL;
 
 export const apiPath = (path: string): string => {

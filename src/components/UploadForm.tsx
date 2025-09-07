@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback } from 'react';
 interface UploadFormProps {
   onUploadSuccess: (files: any[]) => void;
 }
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || process.env.VITE_API_BASE_URL;
 const UploadForm: React.FC<UploadFormProps> = ({ onUploadSuccess }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
@@ -69,7 +69,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ onUploadSuccess }) => {
     });
 
     try {
-      const response = await fetch('http://localhost:3001/api/upload', {
+      const response = await fetch(`${API_BASE_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Play, Image as ImageIcon, AlertCircle, Loader2 } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Badge } from '@/components/ui/badge';
-
 interface MediaGalleryProps {
   images: string[];
   videos: string[];
   title: string;
   className?: string;
 }
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || process.env.VITE_API_BASE_URL;
 
 const MediaGallery: React.FC<MediaGalleryProps> = ({ images, videos, title, className = '' }) => {
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({});
@@ -69,7 +69,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ images, videos, title, clas
                   <>
                     {item.type === 'image' ? (
                       <img
-                        src={`http://localhost:3001${item.url}`}
+                        src={`${API_BASE_URL+item.url}`}
                         alt={`${title} - Image ${index + 1}`}
                         className="w-full h-full object-cover"
                         onLoad={() => handleMediaLoad(item.url)}
@@ -78,7 +78,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ images, videos, title, clas
                       />
                     ) : (
                       <video
-                        src={`http://localhost:3001${item.url}`}
+                        src={`${API_BASE_URL+item.url}`}
                         className="w-full h-full object-cover"
                         controls
                         preload="metadata"

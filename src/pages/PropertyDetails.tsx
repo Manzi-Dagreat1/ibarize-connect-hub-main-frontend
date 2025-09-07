@@ -15,7 +15,7 @@ const PropertyDetails = () => {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || process.env.VITE_API_BASE_URL;
   useEffect(() => {
     const loadProperty = async () => {
       if (!id) return;
@@ -213,7 +213,7 @@ const PropertyDetails = () => {
                 {property.images && property.images.length > 0 ? (
                   <>
                     <img
-                      src={`http://localhost:3001${property.images[currentImageIndex]}`}
+                      src={`${API_BASE_URL+property.images[currentImageIndex]}`}
                       alt={property.title}
                       className="w-full h-96 object-cover"
                     />
@@ -431,10 +431,10 @@ const PropertyDetails = () => {
                     {property.videos.map((video, index) => (
                       <div key={index} className="relative">
                         <video
-                          src={`http://localhost:3001${video}`}
+                          src={`${API_BASE_URL+video}`}
                           controls
                           className="w-full h-48 object-cover rounded-lg"
-                          poster={property.images && property.images[0] ? `http://localhost:3001${property.images[0]}` : undefined}
+                          poster={property.images && property.images[0] ? `${API_BASE_URL+property.images[0]}` : undefined}
                         />
                       </div>
                     ))}

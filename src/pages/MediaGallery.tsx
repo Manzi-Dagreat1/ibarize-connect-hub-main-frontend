@@ -9,7 +9,7 @@ interface MediaFile {
   size: number;
   uploadedAt: string;
 }
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || process.env.VITE_API_BASE_URL;
 const MediaGallery: React.FC = () => {
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const MediaGallery: React.FC = () => {
 
   const fetchFiles = async (pageNum = 1) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/files?page=${pageNum}&limit=12`);
+      const response = await fetch(`${API_BASE_URL}/api/files?page=${pageNum}&limit=12`);
       if (!response.ok) {
         throw new Error('Failed to fetch files');
       }
@@ -77,13 +77,13 @@ const MediaGallery: React.FC = () => {
                   <div className="aspect-square bg-gray-100 flex items-center justify-center">
                     {file.mimetype.startsWith('image/') ? (
                       <img
-                        src={`http://localhost:3001${file.url}`}
+                        src={`${API_BASE_URL+file.url}`}
                         alt={file.filename}
                         className="w-full h-full object-cover"
                       />
                     ) : file.mimetype.startsWith('video/') ? (
                       <video
-                        src={`http://localhost:3001${file.url}`}
+                        src={`${API_BASE_URL+file.url}`}
                         className="w-full h-full object-cover"
                         controls
                       />
